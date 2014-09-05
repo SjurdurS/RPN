@@ -81,7 +81,16 @@ namespace ReversePolishNotation
                 }
             }
 
-            return stack.Pop();
+            if (stack.Count == 1)
+            {
+                return stack.Pop();
+            }
+            else
+            {
+                throw new Exception("Too many values left in the stack!");
+
+            }
+            
         }
 
         /// <summary>
