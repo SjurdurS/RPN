@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ReversePolishNotation.Tests
 {
@@ -45,6 +46,37 @@ namespace ReversePolishNotation.Tests
 
             double input10 = Program.RPN("1 1 + 1 - 3 * 6 /");
             Assert.AreEqual(input10, 0.5); 
+        }
+
+
+        [TestMethod]
+        public void TestModulationOperations()
+        {
+            double input1 = Program.RPN("4 5 %");
+            Assert.AreEqual(input1, 1);       
+ 
+            double input2 = Program.RPN("5 4 %");
+            Assert.AreEqual(input2, 4);
+        }
+
+        [TestMethod]
+        public void TestSqrtOperations()
+        {
+            double input1 = Program.RPN("9 sqrt");
+            Assert.AreEqual(input1, 3);   
+            
+            double input2 = Program.RPN("4 sqrt");
+            Assert.AreEqual(input2, 2);     
+            
+            double input3 = Program.RPN("0 sqrt");
+            Assert.AreEqual(input3, 0);
+        }        
+        
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "Cannot take the square root of the negative number: -1!")]
+        public void TestSqrtNegativeOperations() 
+        {
+            double input1 = Program.RPN("-1 sqrt");
         }
     }
 }
