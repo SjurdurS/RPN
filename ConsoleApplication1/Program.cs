@@ -4,10 +4,32 @@ using System.Text.RegularExpressions;
 
 namespace ReversePolishNotation
 {
+    public enum Operator
+    {
+        Addition,
+        Subtraction,
+        Multiplication,
+        Division,
+        Modulation,
+        Exponentiation,
+        SquareRoot
+    }
+
     public class Program
     {
-        private static readonly Stack<double> stack = new Stack<double>();
+        private static readonly Stack<double> Stack = new Stack<double>();
 
+        private static readonly Dictionary<string, object[]> Operators = new Dictionary<string, object[]>
+        {
+            // token                n   Operator type
+            {"+", new object[] {2, Operator.Addition}},
+            {"-", new object[] {2, Operator.Subtraction}},
+            {"*", new object[] {2, Operator.Multiplication}},
+            {"/", new object[] {2, Operator.Division}},
+            {"%", new object[] {2, Operator.Modulation}},
+            {"^", new object[] {2, Operator.Exponentiation}},
+            {"sqrt", new object[] {1, Operator.SquareRoot}}
+        };
 
         public static double RPN(string input)
         {
@@ -15,6 +37,7 @@ namespace ReversePolishNotation
             {
                 return 0.0;
             }
+
             input = InputCleaner(input);
 
             string[] tokens = input.Split(' ');
@@ -25,72 +48,92 @@ namespace ReversePolishNotation
                 double num;
                 if (double.TryParse(token, out num))
                 {
-                    stack.Push(num);
+                    Stack.Push(num);
                 }
-                else if (IsOperator(token))
+                else if (Operators.ContainsKey(token))
                 {
-                    if (token == "+")
+                    int n = (int)Operators[token].GetValue(0);
+                    Operator op = (Operator)Operators[token].GetValue(1);
+
+                    if (Stack.Count < n)
                     {
-                        if (stack.Count < 2)
+                        throw new Exception("Cannot use operator. Not enough values in the stack.");
+                    }
+
+                    if (n == 1)
+                    {
+                        double a = Stack.Pop();
+
+                        switch (op)
                         {
-                            throw new Exception("Cannot use operator. Stack is empty.");
+                            case Operator.SquareRoot:
+                                {
+
+                                    Stack.Push(Operation.Sqrt(a));
+                                    break;
+                                }
                         }
 
-                        double a = stack.Pop();
-                        double b = stack.Pop();
-                        stack.Push(Operators.Addition(a, b));
                     }
-                    else if (token == "-")
+                    else if (n == 2)
                     {
-                        if (stack.Count < 2)
-                        {
-                            throw new Exception("Cannot use operator. Stack is empty.");
-                        }
+                        double a = Stack.Pop();
+                        double b = Stack.Pop();
 
-                        double a = stack.Pop();
-                        double b = stack.Pop();
-                        stack.Push(Operators.Subtraction(b, a));
-                    }
-                    else if (token == "*")
-                    {
-                        if (stack.Count < 2)
+                        switch (op)
                         {
-                            throw new Exception("Cannot use operator. Stack is empty.");
-                        }
+                            case Operator.Addition:
+                                {
+                                    Stack.Push(Operation.Addition(a, b));
+                                    break;
+                                }
+                            case Operator.Subtraction:
+                                {
+                                    Stack.Push(Operation.Subtraction(b, a));
+                                    break;
+                                }
+                            case Operator.Multiplication:
+                                {
+                                    Stack.Push(Operation.Multiplication(a, b));
+                                    break;
+                                }
+                            case Operator.Division:
+                                {
+                                    Stack.Push(Operation.Division(b, a));
+                                    break;
+                                }
+                            case Operator.Modulation:
+                                {
+                                    Stack.Push(Operation.Modulation(a, b));
+                                    break;
+                                }
+                            case Operator.Exponentiation:
+                                {
+                                    Stack.Push(Operation.Exponentiation(a, b));
+                                    break;
+                                }
 
-                        double a = stack.Pop();
-                        double b = stack.Pop();
-                        stack.Push(Operators.Multiplication(a, b));
-                    }
-                    else if (token == "/")
-                    {
-                        if (stack.Count < 2)
-                        {
-                            throw new Exception("Cannot use operator. Stack is empty.");
                         }
-
-                        double a = stack.Pop();
-                        double b = stack.Pop();
-                        stack.Push(Operators.Division(b, a));
                     }
+
+
                 }
-
                 else
                 {
-                    throw new Exception("Invalid operator found!");
+                    throw new Exception("Invalid operator entered: " + token + "!");
                 }
             }
 
-            if (stack.Count == 1)
+
+
+            if (Stack.Count == 1)
             {
-                return stack.Pop();
+                return Stack.Pop();
             }
             else
             {
                 throw new Exception("Too many values left in the stack!");
-
             }
-            
         }
 
         /// <summary>
@@ -98,7 +141,7 @@ namespace ReversePolishNotation
         /// </summary>
         /// <param name="input">RPN</param>
         /// <returns>True if the token is a valid operator and false otherwise.</returns>
-        public static bool IsOperator(string token)
+        private static bool IsOperator(string token)
         {
             return (token == "+" || token == "-" || token == "*" || token == "/");
         }
@@ -109,18 +152,18 @@ namespace ReversePolishNotation
         /// </summary>
         /// <param name="input">RPN</param>
         /// <returns>Cleaned input</returns>
-        public static string InputCleaner(string input)
+        private static string InputCleaner(string input)
         {
             Regex.Replace(input, @"\s+", " ");
             Regex.Replace(input, "-", "–"); // Replace hyphen with minus
             return input;
         }
 
-        private static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine(RPN("5 1 2 + 4 * + 3 -"));
-            Console.WriteLine(RPN(""));
-            Console.WriteLine(RPN("1"));
+            Console.WriteLine(RPN("5 2 ^ 2 +"));
+            Console.WriteLine(RPN("5 4 %"));
+            Console.WriteLine(RPN("0 sqrt"));
         }
     }
 }
