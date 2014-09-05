@@ -41,7 +41,10 @@ namespace ReversePolishNotation.Tests
             Assert.AreEqual(input8, 0);
 
             double input9 = Program.RPN("5 1 2 + 4 * + 3 -");
-            Assert.AreEqual(input9, 14); 
+            Assert.AreEqual(input9, 14);
+
+            double input10 = Program.RPN("1 1 + 1 - 3 * 6 /");
+            Assert.AreEqual(input10, 0.5); 
         }
     }
 }
