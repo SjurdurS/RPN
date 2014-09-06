@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ReversePolishNotation.Tests
@@ -78,5 +79,20 @@ namespace ReversePolishNotation.Tests
         {
             double input1 = Program.RPN("-1 sqrt");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof (Exception), "Invalid operator entered: log!")]
+        public void TestInvalidOperator()
+        {
+            double input = Program.RPN("2 log");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof (Exception), "Cannot use operator. Not enough values in the stack.")]
+        public void TestNotEnoughValuesInStack()
+        {
+            double input = Program.RPN("32++");
+        }
+       
     }
 }
