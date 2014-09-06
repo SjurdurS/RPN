@@ -22,13 +22,13 @@ namespace ReversePolishNotation
         private static readonly Dictionary<string, object[]> Operators = new Dictionary<string, object[]>
         {
             // token                n   Operator type
-            {"+", new object[] {2, Operator.Addition}},
-            {"-", new object[] {2, Operator.Subtraction}},
-            {"*", new object[] {2, Operator.Multiplication}},
-            {"/", new object[] {2, Operator.Division}},
-            {"%", new object[] {2, Operator.Modulation}},
-            {"^", new object[] {2, Operator.Exponentiation}},
-            {"sqrt", new object[] {1, Operator.SquareRoot}}
+            {"+", new object[] {Operator.Addition, 2}},
+            {"-", new object[] {Operator.Subtraction, 2}},
+            {"*", new object[] {Operator.Multiplication, 2}},
+            {"/", new object[] {Operator.Division, 2}},
+            {"%", new object[] {Operator.Modulation, 2}},
+            {"^", new object[] {Operator.Exponentiation, 2}},
+            {"sqrt", new object[] {Operator.SquareRoot, 1}}
         };
 
         public static double RPN(string input)
@@ -55,8 +55,9 @@ namespace ReversePolishNotation
                 }
                 else if (Operators.ContainsKey(token))
                 {
-                    int n = (int)Operators[token].GetValue(0);
-                    Operator op = (Operator)Operators[token].GetValue(1);
+                    
+                    Operator op = (Operator)Operators[token].GetValue(0);
+                    int n = (int)Operators[token].GetValue(1);
 
                     if (stack.Count < n)
                     {
