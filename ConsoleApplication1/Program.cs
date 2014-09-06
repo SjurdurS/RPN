@@ -21,7 +21,7 @@ namespace ReversePolishNotation
 
         private static readonly Dictionary<string, object[]> Operators = new Dictionary<string, object[]>
         {
-            // token                n   Operator type
+            // token             Operator type     n   
             {"+", new object[] {Operator.Addition, 2}},
             {"-", new object[] {Operator.Subtraction, 2}},
             {"*", new object[] {Operator.Multiplication, 2}},
