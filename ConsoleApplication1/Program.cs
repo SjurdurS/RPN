@@ -158,6 +158,16 @@ namespace ReversePolishNotation
             return Operators.ContainsKey(token);
         }
 
+        /// <summary>
+        /// Convert infix to RPN.
+        /// </summary>
+        /// <param name="infix"></param>
+        /// <returns></returns>
+        private static string InfixToRPN(string infix)
+        {
+            return "";
+        }
+
         public static void Main(string[] args)
         {
             Console.WriteLine(RPN("5 1 2 + -"));
