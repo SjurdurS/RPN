@@ -53,7 +53,7 @@ namespace ReversePolishNotation
                 {
                     stack.Push(num);
                 }
-                else if (Operators.ContainsKey(token))
+                else if (IsOperator(token))
                 {
                     
                     Operator op = (Operator)Operators[token].GetValue(0);
@@ -141,16 +141,6 @@ namespace ReversePolishNotation
         }
 
         /// <summary>
-        ///     Check is a token is one of the valid operators.
-        /// </summary>
-        /// <param name="input">RPN</param>
-        /// <returns>True if the token is a valid operator and false otherwise.</returns>
-        private static bool IsOperator(string token)
-        {
-            return (token == "+" || token == "-" || token == "*" || token == "/");
-        }
-
-        /// <summary>
         ///     Clean up the input string. There was a problem with hyphen and mathematical minus.
         ///     Also incase there are excessive space characters replace multiple white space characters with a single space.
         /// </summary>
@@ -161,6 +151,11 @@ namespace ReversePolishNotation
             Regex.Replace(input, @"\s+", " ");
             Regex.Replace(input, "-", "–"); // Replace hyphen with minus
             return input;
+        }
+
+        private static Boolean IsOperator(string token)
+        {
+            return Operators.ContainsKey(token);
         }
 
         public static void Main(string[] args)
