@@ -17,7 +17,7 @@ namespace ReversePolishNotation
 
     public class Program
     {
-        private static readonly Stack<double> Stack = new Stack<double>();
+        
 
         private static readonly Dictionary<string, object[]> Operators = new Dictionary<string, object[]>
         {
@@ -33,6 +33,9 @@ namespace ReversePolishNotation
 
         public static double RPN(string input)
         {
+
+            Stack<double> stack = new Stack<double>();
+
             if (input == "")
             {
                 return 0.0;
@@ -48,28 +51,28 @@ namespace ReversePolishNotation
                 double num;
                 if (double.TryParse(token, out num))
                 {
-                    Stack.Push(num);
+                    stack.Push(num);
                 }
                 else if (Operators.ContainsKey(token))
                 {
                     int n = (int)Operators[token].GetValue(0);
                     Operator op = (Operator)Operators[token].GetValue(1);
 
-                    if (Stack.Count < n)
+                    if (stack.Count < n)
                     {
                         throw new Exception("Cannot use operator. Not enough values in the stack.");
                     }
 
                     if (n == 1)
                     {
-                        double a = Stack.Pop();
+                        double a = stack.Pop();
 
                         switch (op)
                         {
                             case Operator.SquareRoot:
                                 {
 
-                                    Stack.Push(Operation.Sqrt(a));
+                                    stack.Push(Operation.Sqrt(a));
                                     break;
                                 }
                         }
@@ -77,39 +80,39 @@ namespace ReversePolishNotation
                     }
                     else if (n == 2)
                     {
-                        double a = Stack.Pop();
-                        double b = Stack.Pop();
+                        double a = stack.Pop();
+                        double b = stack.Pop();
 
                         switch (op)
                         {
                             case Operator.Addition:
                                 {
-                                    Stack.Push(Operation.Addition(a, b));
+                                    stack.Push(Operation.Addition(a, b));
                                     break;
                                 }
                             case Operator.Subtraction:
                                 {
-                                    Stack.Push(Operation.Subtraction(b, a));
+                                    stack.Push(Operation.Subtraction(b, a));
                                     break;
                                 }
                             case Operator.Multiplication:
                                 {
-                                    Stack.Push(Operation.Multiplication(a, b));
+                                    stack.Push(Operation.Multiplication(a, b));
                                     break;
                                 }
                             case Operator.Division:
                                 {
-                                    Stack.Push(Operation.Division(b, a));
+                                    stack.Push(Operation.Division(b, a));
                                     break;
                                 }
                             case Operator.Modulation:
                                 {
-                                    Stack.Push(Operation.Modulation(a, b));
+                                    stack.Push(Operation.Modulation(a, b));
                                     break;
                                 }
                             case Operator.Exponentiation:
                                 {
-                                    Stack.Push(Operation.Exponentiation(a, b));
+                                    stack.Push(Operation.Exponentiation(a, b));
                                     break;
                                 }
 
@@ -126,9 +129,9 @@ namespace ReversePolishNotation
 
 
 
-            if (Stack.Count == 1)
+            if (stack.Count == 1)
             {
-                return Stack.Pop();
+                return stack.Pop();
             }
             else
             {
@@ -161,7 +164,7 @@ namespace ReversePolishNotation
 
         public static void Main(string[] args)
         {
-            Console.WriteLine(RPN("5 2 ^ 2 +"));
+            Console.WriteLine(RPN("5 1 2 + -"));
             Console.WriteLine(RPN("5 4 %"));
             Console.WriteLine(RPN("0 sqrt"));
         }
