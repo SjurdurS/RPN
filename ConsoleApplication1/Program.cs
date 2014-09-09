@@ -60,7 +60,7 @@ namespace ReversePolishNotation
 
                     if (stack.Count < n)
                     {
-                        throw new Exception("Cannot use operator. Not enough values in the stack.");
+                        throw new Exception("Cannot use operator. Not enough operands available.");
                     }
 
                     if (n == 1)
@@ -135,7 +135,7 @@ namespace ReversePolishNotation
             }
             else
             {
-                throw new Exception("Too many values left in the stack!");
+                throw new Exception("Too many operands in the stack!");
             }
         }
 
