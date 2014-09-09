@@ -54,10 +54,10 @@ namespace ReversePolishNotation.Tests
         public void TestModulationOperations()
         {
             double input1 = Program.RPN("4 5 %");
-            Assert.AreEqual(input1, 1);       
+            Assert.AreEqual(input1, 4);       
  
             double input2 = Program.RPN("5 4 %");
-            Assert.AreEqual(input2, 4);
+            Assert.AreEqual(input2, 1);
         }
 
         [TestMethod]
