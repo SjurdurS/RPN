@@ -4,6 +4,13 @@ using System.Text.RegularExpressions;
 
 namespace ReversePolishNotation
 {
+    /// <summary>
+    /// This class calculates a Reverse Polish Notation expression (also known as postfix).
+    /// 
+    /// </summary>
+    /// <author>Sjúrður í Sandagerði</author>
+    /// <author>Ans Uddin</author>
+    /// <author>Nicolai Thorndahl</author>
     public class Program
     {
         /// <summary>
