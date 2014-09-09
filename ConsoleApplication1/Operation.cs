@@ -34,7 +34,7 @@ namespace ReversePolishNotation
         }
         public static double Exponentiation(double a, double b)
         {
-            return Math.Pow(b, a);
+            return Math.Pow(a, b);
         }        
         public static double Sqrt(double a)
         {

@@ -13,16 +13,15 @@ namespace ReversePolishNotation
         /// <value index="0">Enumerate value of the operator.</value>
         /// <value index="1">Number of operands the operator takes.</value>
         /// </summary>
-        public static readonly Dictionary<string, object[]> availableOperators = new Dictionary<string, object[]>
+        public static readonly Dictionary<string, Operator> AvailableOperators = new Dictionary<string, Operator>
         {
-          // token                    Operator enum             n   
-            {"+",       new object[] {Operator.Addition,        2}},
-            {"-",       new object[] {Operator.Subtraction,     2}},
-            {"*",       new object[] {Operator.Multiplication,  2}},
-            {"/",       new object[] {Operator.Division,        2}},
-            {"%",       new object[] {Operator.Modulation,      2}},
-            {"^",       new object[] {Operator.Exponentiation,  2}},
-            {"sqrt",    new object[] {Operator.SquareRoot,      1}}
+            {"+",       new Operator(OperatorType.Addition,         2)},
+            {"-",       new Operator(OperatorType.Subtraction,      2)},
+            {"*",       new Operator(OperatorType.Multiplication,   2)},
+            {"/",       new Operator(OperatorType.Division,         2)},
+            {"%",       new Operator(OperatorType.Modulation,       2)},
+            {"^",       new Operator(OperatorType.Exponentiation,   2)},
+            {"sqrt",    new Operator(OperatorType.SquareRoot,       1)}
         };
 
         /// <summary>
@@ -55,9 +54,9 @@ namespace ReversePolishNotation
                 }
                 else if (IsOperator(token))
                 {
-
-                    Operator op = (Operator) availableOperators[token].GetValue(0);
-                    int n = (int) availableOperators[token].GetValue(1);
+                    Operator op = AvailableOperators[token];
+                    OperatorType operatorType = op.OperatorType;
+                    int n = op.NumOfOperands;
 
                     if (stack.Count < n)
                     {
@@ -68,9 +67,9 @@ namespace ReversePolishNotation
                     {
                         double a = stack.Pop();
 
-                        switch (op)
+                        switch (operatorType)
                         {
-                            case Operator.SquareRoot:
+                            case OperatorType.SquareRoot:
                                 {
 
                                     stack.Push(Operation.Sqrt(a));
@@ -81,37 +80,37 @@ namespace ReversePolishNotation
                     }
                     else if (n == 2)
                     {
-                        double a = stack.Pop();
                         double b = stack.Pop();
+                        double a = stack.Pop();
 
-                        switch (op)
+                        switch (operatorType)
                         {
-                            case Operator.Addition:
+                            case OperatorType.Addition:
                                 {
                                     stack.Push(Operation.Addition(a, b));
                                     break;
                                 }
-                            case Operator.Subtraction:
+                            case OperatorType.Subtraction:
                                 {
-                                    stack.Push(Operation.Subtraction(b, a));
+                                    stack.Push(Operation.Subtraction(a, b));
                                     break;
                                 }
-                            case Operator.Multiplication:
+                            case OperatorType.Multiplication:
                                 {
                                     stack.Push(Operation.Multiplication(a, b));
                                     break;
                                 }
-                            case Operator.Division:
+                            case OperatorType.Division:
                                 {
-                                    stack.Push(Operation.Division(b, a));
+                                    stack.Push(Operation.Division(a, b));
                                     break;
                                 }
-                            case Operator.Modulation:
+                            case OperatorType.Modulation:
                                 {
                                     stack.Push(Operation.Modulation(a, b));
                                     break;
                                 }
-                            case Operator.Exponentiation:
+                            case OperatorType.Exponentiation:
                                 {
                                     stack.Push(Operation.Exponentiation(a, b));
                                     break;
@@ -155,7 +154,7 @@ namespace ReversePolishNotation
 
         private static Boolean IsOperator(string token)
         {
-            return Operators.AvailableOperators.ContainsKey(token);
+            return AvailableOperators.ContainsKey(token);
         }
 
         /// <summary>
