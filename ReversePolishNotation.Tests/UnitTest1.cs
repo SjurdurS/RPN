@@ -91,7 +91,7 @@ namespace ReversePolishNotation.Tests
         [ExpectedException(typeof (Exception), "Cannot use operator. Not enough values in the stack.")]
         public void TestNotEnoughValuesInStack()
         {
-            double input = Program.RPN("32++");
+            double input = Program.RPN("+");
         }
        
     }
