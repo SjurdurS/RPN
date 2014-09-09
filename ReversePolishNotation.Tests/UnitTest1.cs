@@ -93,6 +93,13 @@ namespace ReversePolishNotation.Tests
         {
             double input = Program.RPN("+");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof (DivideByZeroException))]
+        public void TestDivisionByZero()
+        {
+            double input = Program.RPN("2 2 1E-13 * /");
+        }
        
     }
 }
