@@ -21,7 +21,8 @@ namespace ReversePolishNotation
 
         public static double Division(double a, double b)
         {
-            if (Math.Abs(b) < 0.00000001)
+            const double epsilon = 1E-12;
+            if (Math.Abs(b) < epsilon)
             {
                 throw new DivideByZeroException();
             }
