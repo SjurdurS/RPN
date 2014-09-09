@@ -160,7 +160,7 @@ namespace ReversePolishNotation
 
         public static void Main(string[] args)
         {
-            Console.WriteLine(RPN("5 1 2 + -"));
+            Console.WriteLine(RPN("2 2 +"));
             Console.WriteLine(RPN("5 4 %"));
             Console.WriteLine(RPN("0 sqrt"));
         }
