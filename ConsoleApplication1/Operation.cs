@@ -2,7 +2,7 @@
 
 namespace ReversePolishNotation
 {
-    internal static class Operation
+    public static class Operation
     {
         public static double Multiplication(double a, double b)
         {
