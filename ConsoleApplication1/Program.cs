@@ -4,46 +4,46 @@ using System.Text.RegularExpressions;
 
 namespace ReversePolishNotation
 {
-    public enum Operator
-    {
-        Addition,
-        Subtraction,
-        Multiplication,
-        Division,
-        Modulation,
-        Exponentiation,
-        SquareRoot
-    }
-
     public class Program
     {
-        
 
-        private static readonly Dictionary<string, object[]> Operators = new Dictionary<string, object[]>
+        /// <summary>
+        /// List of available operators.
+        /// <Key>The operator as a token.</Key>
+        /// <value index="0">Enumerate value of the operator.</value>
+        /// <value index="1">Number of operands the operator takes.</value>
+        /// </summary>
+        public static readonly Dictionary<string, object[]> availableOperators = new Dictionary<string, object[]>
         {
-            // token             Operator type     n   
-            {"+", new object[] {Operator.Addition, 2}},
-            {"-", new object[] {Operator.Subtraction, 2}},
-            {"*", new object[] {Operator.Multiplication, 2}},
-            {"/", new object[] {Operator.Division, 2}},
-            {"%", new object[] {Operator.Modulation, 2}},
-            {"^", new object[] {Operator.Exponentiation, 2}},
-            {"sqrt", new object[] {Operator.SquareRoot, 1}}
+          // token                    Operator enum             n   
+            {"+",       new object[] {Operator.Addition,        2}},
+            {"-",       new object[] {Operator.Subtraction,     2}},
+            {"*",       new object[] {Operator.Multiplication,  2}},
+            {"/",       new object[] {Operator.Division,        2}},
+            {"%",       new object[] {Operator.Modulation,      2}},
+            {"^",       new object[] {Operator.Exponentiation,  2}},
+            {"sqrt",    new object[] {Operator.SquareRoot,      1}}
         };
 
-        public static double RPN(string input)
+        /// <summary>
+        /// Reverse Polish Notation calculator.
+        /// This method calculates the value of a postfix / Reverse Polish Notation (RPN) expression.
+        /// </summary>
+        /// <param name="postfix">Mathematical postfix expression.</param>
+        /// <returns>Returns the value of the specified postfix expression.</returns>
+        public static double RPN(string postfix)
         {
 
             Stack<double> stack = new Stack<double>();
 
-            if (input == "")
+            if (postfix == "")
             {
                 return 0.0;
             }
 
-            input = InputCleaner(input);
+            postfix = InputCleaner(postfix);
 
-            string[] tokens = input.Split(' ');
+            string[] tokens = postfix.Split(' ');
 
 
             foreach (string token in tokens)
@@ -55,9 +55,9 @@ namespace ReversePolishNotation
                 }
                 else if (IsOperator(token))
                 {
-                    
-                    Operator op = (Operator)Operators[token].GetValue(0);
-                    int n = (int)Operators[token].GetValue(1);
+
+                    Operator op = (Operator) availableOperators[token].GetValue(0);
+                    int n = (int) availableOperators[token].GetValue(1);
 
                     if (stack.Count < n)
                     {
@@ -141,11 +141,11 @@ namespace ReversePolishNotation
         }
 
         /// <summary>
-        ///     Clean up the input string. There was a problem with hyphen and mathematical minus.
+        ///     Clean up the postfix string. There was a problem with hyphen and mathematical minus.
         ///     Also incase there are excessive space characters replace multiple white space characters with a single space.
         /// </summary>
         /// <param name="input">RPN</param>
-        /// <returns>Cleaned input</returns>
+        /// <returns>Cleaned postfix</returns>
         private static string InputCleaner(string input)
         {
             Regex.Replace(input, @"\s+", " ");
@@ -155,7 +155,7 @@ namespace ReversePolishNotation
 
         private static Boolean IsOperator(string token)
         {
-            return Operators.ContainsKey(token);
+            return Operators.AvailableOperators.ContainsKey(token);
         }
 
         /// <summary>
