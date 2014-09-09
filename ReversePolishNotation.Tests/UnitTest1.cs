@@ -88,7 +88,7 @@ namespace ReversePolishNotation.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof (Exception), "Cannot use operator. Not enough values in the stack.")]
+        [ExpectedException(typeof(Exception), "Cannot use operator. Not enough operands available.")]
         public void TestNotEnoughValuesInStack()
         {
             double input = Program.RPN("+");
