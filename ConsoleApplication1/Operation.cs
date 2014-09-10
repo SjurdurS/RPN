@@ -5,6 +5,9 @@ namespace ReversePolishNotation
     /// <summary>
     /// This class represents an operation.
     /// </summary>
+    /// <author>Sjúrður í Sandagerði</author>
+    /// <author>Ans Uddin</author>
+    /// <author>Nicolai Thorndahl</author>
     public static class Operation
     {
         public static double Multiplication(double x, double y)
