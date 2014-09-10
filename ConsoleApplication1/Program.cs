@@ -19,7 +19,7 @@ namespace ReversePolishNotation
         ///     <value index="0">Enumerate value of the operator.</value>
         ///     <value index="1">Number of operands the operator takes.</value>
         /// </summary>
-        public static readonly Dictionary<string, Operator> AvailableOperators = new Dictionary<string, Operator>
+        private static readonly Dictionary<string, Operator> AvailableOperators = new Dictionary<string, Operator>
         {
             {"+", new Operator(OperatorType.Addition, 2)},
             {"-", new Operator(OperatorType.Subtraction, 2)},
