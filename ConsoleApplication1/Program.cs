@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace ReversePolishNotation
@@ -53,7 +54,7 @@ namespace ReversePolishNotation
             foreach (string token in tokens)
             {
                 double num;
-                if (double.TryParse(token, out num))
+                if (double.TryParse(token, NumberStyles.Any, CultureInfo.InvariantCulture, out num))
                 {
                     stack.Push(num);
                 }
