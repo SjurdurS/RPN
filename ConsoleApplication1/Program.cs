@@ -6,8 +6,7 @@ using System.Text.RegularExpressions;
 namespace ReversePolishNotation
 {
     /// <summary>
-    /// This class calculates a Reverse Polish Notation expression (also known as postfix).
-    /// 
+    ///     This class calculates a Reverse Polish Notation expression (also known as postfix).
     /// </summary>
     /// <author>Sjúrður í Sandagerði</author>
     /// <author>Ans Uddin</author>
@@ -20,15 +19,27 @@ namespace ReversePolishNotation
         ///     <value index="0">Enumerate value of the operator.</value>
         ///     <value index="1">Number of operands the operator takes.</value>
         /// </summary>
-        private static readonly Dictionary<string, Operator> AvailableOperators = new Dictionary<string, Operator>
+        private static readonly Dictionary<string, IOperation> AvailableOperators = new Dictionary<string, IOperation>
         {
-            {"+", new Operator(OperatorType.Addition, 2)},
-            {"-", new Operator(OperatorType.Subtraction, 2)},
-            {"*", new Operator(OperatorType.Multiplication, 2)},
-            {"/", new Operator(OperatorType.Division, 2)},
-            {"%", new Operator(OperatorType.Modulation, 2)},
-            {"^", new Operator(OperatorType.Exponentiation, 2)},
-            {"sqrt", new Operator(OperatorType.SquareRoot, 1)}
+            {"+", new BinaryOperation((x, y) => x + y)},
+            {"-", new BinaryOperation((x, y) => x - y)},
+            {"*", new BinaryOperation((x, y) => x * y)},
+            {"/", new BinaryOperation((x, y) =>
+                    {
+                        const double epsilon = 1E-14;
+                        if (Math.Abs(x) < epsilon) throw new DivideByZeroException();
+                        return x/y;
+                    })},
+            {"%", new BinaryOperation((x, y) => x % y)},
+            {"power", new BinaryOperation((x, y) => Math.Pow(x, y))},
+            {"sqrt", new UnaryOperation(x =>
+            {
+                if (x < 0)
+                {
+                    throw new ArgumentException("Cannot take the square root of the negative number: " + x);
+                } else return Math.Sqrt(x);
+            })},
+            {"abs", new UnaryOperation(x => Math.Abs(x))}
         };
 
         /// <summary>
@@ -40,7 +51,6 @@ namespace ReversePolishNotation
         public static double RPN(string postfix)
         {
             var stack = new Stack<double>();
-
             if (postfix == "")
             {
                 return 0.0;
@@ -60,66 +70,25 @@ namespace ReversePolishNotation
                 }
                 else if (IsOperator(token))
                 {
-                    Operator op = AvailableOperators[token];
-                    OperatorType operatorType = op.OperatorType;
-                    int n = op.NumOfOperands;
+                    IOperation operation = AvailableOperators[token];
 
-                    if (stack.Count < n)
+                    try
                     {
-                        throw new Exception("Cannot use operator. Not enough operands available.");
-                    }
-
-                    if (n == 1)
-                    {
-                        double a = stack.Pop();
-
-                        switch (operatorType)
+                        if (operation is UnaryOperation)
                         {
-                            case OperatorType.SquareRoot:
-                            {
-                                stack.Push(Operation.Sqrt(a));
-                                break;
-                            }
+                            double a = stack.Pop();
+                            stack.Push(operation.Execute(a));
+                        }
+                        else if (operation is BinaryOperation)
+                        {
+                            double b = stack.Pop();
+                            double a = stack.Pop();
+                            stack.Push(operation.Execute(a, b));
                         }
                     }
-                    else if (n == 2)
+                    catch (InvalidOperationException ex)
                     {
-                        double b = stack.Pop();
-                        double a = stack.Pop();
-
-                        switch (operatorType)
-                        {
-                            case OperatorType.Addition:
-                            {
-                                stack.Push(Operation.Addition(a, b));
-                                break;
-                            }
-                            case OperatorType.Subtraction:
-                            {
-                                stack.Push(Operation.Subtraction(a, b));
-                                break;
-                            }
-                            case OperatorType.Multiplication:
-                            {
-                                stack.Push(Operation.Multiplication(a, b));
-                                break;
-                            }
-                            case OperatorType.Division:
-                            {
-                                stack.Push(Operation.Division(a, b));
-                                break;
-                            }
-                            case OperatorType.Modulation:
-                            {
-                                stack.Push(Operation.Modulation(a, b));
-                                break;
-                            }
-                            case OperatorType.Exponentiation:
-                            {
-                                stack.Push(Operation.Exponentiation(a, b));
-                                break;
-                            }
-                        }
+                        Console.WriteLine("Not enough operands on stack: " + ex);
                     }
                 }
                 else
@@ -140,7 +109,7 @@ namespace ReversePolishNotation
         ///     Also in case there are excessive space characters replace
         ///     multiple white space characters with a single space character.
         /// </summary>
-        /// <param name="input">postfix</param>
+        /// <param name="postfix">postfix</param>
         /// <returns>Cleaned postfix</returns>
         private static string InputCleaner(string postfix)
         {
@@ -161,9 +130,7 @@ namespace ReversePolishNotation
 
         public static void Main(string[] args)
         {
-            Console.WriteLine(RPN("2 2 +"));
-            Console.WriteLine(RPN("5 4 %"));
-            Console.WriteLine(RPN("0 sqrt"));
+            Console.WriteLine(RPN("-1 sqrt"));
         }
     }
 }

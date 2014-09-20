@@ -74,7 +74,7 @@ namespace ReversePolishNotation.Tests
         }        
         
         [TestMethod]
-        [ExpectedException(typeof(Exception), "Cannot take the square root of the negative number: -1!")]
+        [ExpectedException(typeof(ArgumentException), "Cannot take the square root of the negative number: -1")]
         public void TestSqrtNegativeOperations() 
         {
             double input1 = Program.RPN("-1 sqrt");
@@ -98,7 +98,7 @@ namespace ReversePolishNotation.Tests
         [ExpectedException(typeof (DivideByZeroException))]
         public void TestDivisionByZero()
         {
-            double input = Program.RPN("2 2 1E-13 * /");
+            double input = Program.RPN("0 1E-15 /");
         }
        
     }
