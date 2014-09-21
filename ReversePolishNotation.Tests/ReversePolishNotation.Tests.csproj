@@ -53,8 +53,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="SubtractionTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AdditionTests.cs" />
+    <Compile Include="MultiplicationTests.cs" />
+    <Compile Include="DivisionTests.cs" />
+    <Compile Include="AbsoluteValueTests.cs" />
+    <Compile Include="ModuloTests.cs" />
+    <Compile Include="PowerTests.cs" />
+    <Compile Include="SquareRootTests.cs" />
+    <Compile Include="MultipleOperatorsTests.cs" />
+    <Compile Include="VariousOtherCases.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleApplication1\ReversePolishNotation.csproj">

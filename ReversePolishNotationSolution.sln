@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversePolishNotation", "ConsoleApplication1\ReversePolishNotation.csproj", "{466556DA-DC9E-462A-A93F-4CE822874501}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversePolishNotation", "ReversePolishNotationCalculator\ReversePolishNotation.csproj", "{466556DA-DC9E-462A-A93F-4CE822874501}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversePolishNotation.Tests", "ReversePolishNotation.Tests\ReversePolishNotation.Tests.csproj", "{F6D5711A-590B-4C70-A234-277A55E704AB}"
 EndProject

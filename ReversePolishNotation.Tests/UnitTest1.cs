@@ -18,22 +18,6 @@ namespace ReversePolishNotation.Tests
         }
 
         [TestMethod]
-        public void TestOperations()
-        {
-            double input3 = Program.RPN("5 5 +");
-            Assert.AreEqual(input3, 10);
-
-            double input4 = Program.RPN("5 5 -");
-            Assert.AreEqual(input4, 0);
-
-            double input5 = Program.RPN("5 5 *");
-            Assert.AreEqual(input5, 25);
-
-            double input6 = Program.RPN("5 5 /");
-            Assert.AreEqual(input6, 1);
-        }
-
-        [TestMethod]
         public void TestComplexOperations()
         {
             double input7 = Program.RPN("5 5 2 * +");
@@ -100,6 +84,6 @@ namespace ReversePolishNotation.Tests
         {
             double input = Program.RPN("0 1E-15 /");
         }
-       
+
     }
 }
