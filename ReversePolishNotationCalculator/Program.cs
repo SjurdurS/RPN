@@ -93,7 +93,7 @@ namespace ReversePolishNotation
                     }
                     catch (InvalidOperationException ex)
                     {
-                        throw new InvalidOperationException(ex.Message);
+                        throw new InvalidOperationException("Not enough operands on stack", ex); // Custom Error Message
                     }
                 }
                 else
@@ -106,7 +106,7 @@ namespace ReversePolishNotation
             {
                 return stack.Pop();
             }
-            throw new Exception("Too many operands in the stack!");
+            throw new Exception("Too many operands on stack!");
         }
 
         /// <summary>

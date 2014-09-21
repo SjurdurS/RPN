@@ -41,7 +41,7 @@ namespace ReversePolishNotation.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(System.InvalidOperationException))]
+        [ExpectedException(typeof(System.InvalidOperationException), "Not enough operands on stack")]
         public void Not_Enough_Operands_Test1()
         {
             string input = "1 +";
@@ -49,7 +49,7 @@ namespace ReversePolishNotation.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [ExpectedException(typeof(InvalidOperationException), "Not enough operands on stack")]
         public void Not_Enough_Operands_Test2()
         {
             string input = "1 3 + + -";
