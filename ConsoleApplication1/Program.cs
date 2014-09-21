@@ -27,10 +27,15 @@ namespace ReversePolishNotation
             {"/", new BinaryOperation((x, y) =>
                     {
                         const double epsilon = 1E-14;
-                        if (Math.Abs(x) < epsilon) throw new DivideByZeroException();
+                        if (Math.Abs(y) < epsilon) throw new DivideByZeroException();
                         return x/y;
                     })},
-            {"%", new BinaryOperation((x, y) => x % y)},
+            {"%", new BinaryOperation((x, y) =>
+                    {
+                        const double epsilon = 1E-14;
+                        if (Math.Abs(y) < epsilon) throw new ArgumentException("Modulo by zero");
+                        return x%y;
+                    })},
             {"power", new BinaryOperation((x, y) => Math.Pow(x, y))},
             {"sqrt", new UnaryOperation(x =>
             {
@@ -88,12 +93,12 @@ namespace ReversePolishNotation
                     }
                     catch (InvalidOperationException ex)
                     {
-                        Console.WriteLine("Not enough operands on stack: " + ex);
+                        throw new InvalidOperationException(ex.Message);
                     }
                 }
                 else
                 {
-                    throw new Exception("Invalid operator entered: " + token + "!");
+                    throw new ArgumentException("Invalid operator entered: " + token + "!");
                 }
             }
 
