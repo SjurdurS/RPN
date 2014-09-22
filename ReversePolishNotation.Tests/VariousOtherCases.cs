@@ -54,6 +54,21 @@ namespace ReversePolishNotation.Tests
         {
             string input = "1 3 + + -";
             double result = Program.RPN(input);        
+        }        
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException), "Too many operands on stack!")]
+        public void Too_Many_Operands_On_Stack_Exception_Test1()
+        {
+            string input = "1 3 + + -";
+            double result = Program.RPN(input);        
+        }        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException), "Too many operands on stack!")]
+        public void Too_Many_Operands_On_Stack_Exception_Test2()
+        {
+            string input = "1 3 * / -";
+            double result = Program.RPN(input);        
         }
     }
 }
