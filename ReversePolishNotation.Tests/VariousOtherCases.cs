@@ -24,6 +24,7 @@ namespace ReversePolishNotation.Tests
             Assert.AreEqual(result, expectedResult);
         }
   
+        /*
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Invalid operator entered: datCosinus!")]
         public void Invalid_Operator_Test1()
@@ -55,5 +56,6 @@ namespace ReversePolishNotation.Tests
             string input = "1 3 + + -";
             double result = Program.RPN(input);        
         }
+         */
     }
 }
