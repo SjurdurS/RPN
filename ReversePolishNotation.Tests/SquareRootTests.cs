@@ -121,7 +121,7 @@ namespace ReversePolishNotation.Tests
             Assert.IsTrue(difference < epsilon);
         }
 
-        /*
+
         [TestMethod]
         [ExpectedException(typeof (ArgumentException), "Cannot take the square root of the negative number: -1")]
         public void Sqrt_NegativeInput_Test()
@@ -129,7 +129,5 @@ namespace ReversePolishNotation.Tests
             string input = "-1 sqrt";
             double result = Program.RPN(input);
         }
-         */
     }
-
 }

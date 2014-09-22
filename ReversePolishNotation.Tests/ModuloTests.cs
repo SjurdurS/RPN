@@ -6,7 +6,6 @@ namespace ReversePolishNotation.Tests
     [TestClass]
     public class ModuloTests
     {
-        /*
         [TestMethod]
         [ExpectedException(typeof (ArgumentException), "Modulo by zero")]
         public void Modulo_ModuloByZero_Test1()
@@ -22,7 +21,6 @@ namespace ReversePolishNotation.Tests
             string input = "1 0 %";
             double result = Program.RPN(input);
         }
-         * */
 
         [TestMethod]
         public void Modulo_Test1()
