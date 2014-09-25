@@ -17,7 +17,7 @@ namespace ReversePolishNotation
         /// <summary>
         /// Initializes a new instance of the UnaryOperation class.
         /// </summary>
-        /// <param name="performCalculation">Function that takes one argument</param>
+        /// <param name="performCalculation">Delegate that takes one argument</param>
         public UnaryOperation(Func<double, double> performCalculation)
         {
             _performCalculation = performCalculation;

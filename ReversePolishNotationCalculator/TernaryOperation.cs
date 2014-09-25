@@ -12,7 +12,7 @@ namespace ReversePolishNotation
         /// <summary>
         /// Initializes a new instance of the TernaryOperation class.
         /// </summary>
-        /// <param name="performCalculation">Function that takes three arguments</param>
+        /// <param name="performCalculation">Delegate that takes three arguments</param>
         public TernaryOperation(Func<double, double, double, double> performCalculation)
         {
             _performCalculation = performCalculation;
