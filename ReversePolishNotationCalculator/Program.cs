@@ -55,7 +55,7 @@ namespace ReversePolishNotation
         public static double RPN(string postfix)
         {
             var stack = new Stack<double>();
-            if (postfix == "")
+            if (postfix == String.Empty)
             {
                 return 0.0;
             }
@@ -136,7 +136,7 @@ namespace ReversePolishNotation
         {
             try
             {
-                Console.WriteLine(RPN("1 sqrt 2 4 5"));
+                Console.WriteLine(RPN(""));
             }
             catch (Exception ex)
             {
