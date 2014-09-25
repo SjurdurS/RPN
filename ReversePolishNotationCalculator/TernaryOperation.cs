@@ -2,6 +2,9 @@
 
 namespace ReversePolishNotation
 {
+    /// <summary>
+    /// This class represents a mathematical operator that takes three arguments.
+    /// </summary>
     internal class TernaryOperation : IOperation
     {
         private readonly Func<double, double, double, double> _performCalculation;

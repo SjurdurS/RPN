@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ReversePolishNotation
 {
+    /// <summary>
+    /// This class represents a mathematical operator that takes one argument.
+    /// </summary>
     class UnaryOperation : IOperation
     {
 
