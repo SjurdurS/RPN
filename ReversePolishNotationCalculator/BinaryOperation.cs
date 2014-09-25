@@ -14,6 +14,10 @@ namespace ReversePolishNotation
 
         private readonly Func<double, double, double> _performCalculation;
 
+        /// <summary>
+        /// Initializes a new instance of the BinaryOperation class.
+        /// </summary>
+        /// <param name="performCalculation">Function that takes two arguments</param>
         public BinaryOperation(Func<double, double, double> performCalculation)
         {
             _performCalculation = performCalculation;

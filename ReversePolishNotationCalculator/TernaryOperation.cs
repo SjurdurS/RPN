@@ -9,6 +9,10 @@ namespace ReversePolishNotation
     {
         private readonly Func<double, double, double, double> _performCalculation;
 
+        /// <summary>
+        /// Initializes a new instance of the TernaryOperation class.
+        /// </summary>
+        /// <param name="performCalculation">Function that takes three arguments</param>
         public TernaryOperation(Func<double, double, double, double> performCalculation)
         {
             _performCalculation = performCalculation;
