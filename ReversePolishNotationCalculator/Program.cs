@@ -14,10 +14,9 @@ namespace ReversePolishNotation
     public class Program
     {
         /// <summary>
-        ///     List of available operators.
+        ///     Collection of available operators.
         ///     <Key>The operator as a token.</Key>
-        ///     <value index="0">Enumerate value of the operator.</value>
-        ///     <value index="1">Number of operands the operator takes.</value>
+        ///     <value>Delegate to compute the result of invocation of the operation.</value>
         /// </summary>
         private static readonly Dictionary<string, IOperation> AvailableOperators = new Dictionary<string, IOperation>
         {
