@@ -98,7 +98,7 @@ namespace ReversePolishNotation
                 }
                 else
                 {
-                    throw new ArgumentException("Invalid operator entered: " + token + "!");
+                    throw new ArgumentException("Invalid operator entered: " + token);
                 }
             }
 
@@ -106,7 +106,7 @@ namespace ReversePolishNotation
             {
                 return stack.Pop();
             }
-            throw new Exception("Too many operands on stack!");
+            throw new Exception("Too many operands on stack.");
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace ReversePolishNotation
         {
             try
             {
-                Console.WriteLine(RPN("-1 sqrt"));
+                Console.WriteLine(RPN("1 sqrt 2 4 5"));
             }
             catch (Exception ex)
             {

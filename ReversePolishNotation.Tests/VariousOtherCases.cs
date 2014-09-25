@@ -25,7 +25,7 @@ namespace ReversePolishNotation.Tests
         }
   
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Invalid operator entered: datCosinus!")]
+        [ExpectedException(typeof(ArgumentException), "Invalid operator entered: datCosinus")]
         public void Invalid_Operator_Test1()
         {
             string input = "24 datCosinus";
@@ -33,7 +33,7 @@ namespace ReversePolishNotation.Tests
         }
     
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Invalid operator entered: pows!")]
+        [ExpectedException(typeof(ArgumentException), "Invalid operator entered: pows")]
         public void Invalid_Operator_Test2()
         {
             string input = "15 2 pows";
@@ -57,14 +57,14 @@ namespace ReversePolishNotation.Tests
         }        
         
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException), "Too many operands on stack!")]
+        [ExpectedException(typeof(InvalidOperationException), "Too many operands on stack.")]
         public void Too_Many_Operands_On_Stack_Exception_Test1()
         {
             string input = "1 3 + + -";
             double result = Program.RPN(input);        
         }        
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException), "Too many operands on stack!")]
+        [ExpectedException(typeof(InvalidOperationException), "Too many operands on stack.")]
         public void Too_Many_Operands_On_Stack_Exception_Test2()
         {
             string input = "1 3 * / -";
